@@ -13,6 +13,10 @@ h2 {
   font-size: 14px;
 }
 
+#recipe {
+  font-family: 'Montserrat', sans-serif;
+}
+
 /*DIVIDER FOR BUTTONS*/
 .divider{
   width:60px;
