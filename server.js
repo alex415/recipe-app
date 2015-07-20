@@ -6,11 +6,18 @@ var express = require('express'),
     _ = require('underscore');
 
 // connect to mongodb
-mongoose.connect('mongodb://localhost/food_project');
+mongoose.connect(
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://localhost/recipe_app' // plug in the db name you've been using
+);
 
 // middleware
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
+
+// include our module from the other file
+var Recipe = require('./models/model.js');
 
 // STATIC ROUTES
 
@@ -28,12 +35,7 @@ app.get('/api/recipe', function (req, res) {
   res.json(recipe);
 });
 
-
-
-
-
-
 // listen on port 3000
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log('server started on localhost:3000');
 });
