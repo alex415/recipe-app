@@ -30,7 +30,6 @@ app.get('/', function (req, res) {
 
 // get recipe
 app.get('/api/recipe', function (req, res) {
-// var url="http://food2fork.com/api/search?key=c75d4d5e1941dafbbdc4b6d0ba39b1cf"
   // send recipe as JSON response
   res.json(recipe);
 });
