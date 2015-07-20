@@ -54,8 +54,13 @@
   </center>
 
   <!-- PLACEHOLDER -->
-  <center>
+<!--   <center>
   <img src="http://placehold.it/250x300"> 
+  </center> -->
+
+  <!--   RECIPE SHOWS HERE -->
+  <center>
+  <div id="recipe-item"></div>
   </center>
 
   <!-- BUTTONS -->
@@ -85,14 +90,18 @@
 
   <!-- underscore template -->
   <script type="text/template" id="recipe-template">
-    <div class="recipe">
+    <div id="recipe">
       <p>
-        <%= name %> - <%= species %>
+        <img src="<%= recipe.image_url %>" height=300px;>
       </p>
-      <hr>
+      <p>
+        <%= recipe.title %>
+      </p>
+      <p>
+        Rank: <%= recipe.social_rank %>
+      </p>
     </div>
   </script>
-
-
+  
 </body>
 </html>
