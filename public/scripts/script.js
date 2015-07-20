@@ -33,7 +33,7 @@ $(function() {
   $('#recipe-item').append($recipeTemplate(recipe));
 
   $.ajax({
-      url: "http://food2fork.com/api/search?key=c75d4d5e1941dafbbdc4b6d0ba39b1cf",
+      url: "https://food2fork.com/api/search?key=c75d4d5e1941dafbbdc4b6d0ba39b1cf",
       type: "GET",
       success: function(data) { },
       error: function(jqXHR, textStatus, errorThrown) { }
