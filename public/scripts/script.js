@@ -8,7 +8,7 @@ $(function() {
   var recipe = {
     "recipe": {
         "publisher": "Closet Cooking",
-        "f2f_url": "http://food2fork.com/view/35171",
+        "f2f_url": "https://food2fork.com/view/35171",
         "ingredients": [
             "1/4 cup cooked shredded chicken, warm",
             "1 tablespoon hot sauce",
