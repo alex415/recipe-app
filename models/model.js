@@ -10,3 +10,4 @@ var RecipeSchema = new Schema({
 var Recipe = mongoose.model('Recipe', RecipeSchema);
 
 module.exports = Recipe;
+

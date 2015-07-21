@@ -1,42 +1,80 @@
 $(function() {
 
-  var $recipeTemplate = _.template($('#recipe-template').html()); 
+  // compile recipe template
+  var $recipeTemplate = _.template($('#recipe-template').html());
 
-  console.log($recipeTemplate);
+  // ROUTE TO SERVER
+  $.get('/food2fork', function(data) {
+    var recipes = JSON.parse(data);
+    // console.log(recipes.recipes[0].title);
+    // console.log($recipeTemplate);
 
-  // SEED DATA
-  var recipe = {
-    "recipe": {
-        "publisher": "Closet Cooking",
-        "f2f_url": "https://food2fork.com/view/35171",
-        "ingredients": [
-            "1/4 cup cooked shredded chicken, warm",
-            "1 tablespoon hot sauce",
-            "1/2 tablespoon mayo (optional)",
-            "1 tablespoon carrot, grated",
-            "1 tablespoon celery, sliced",
-            "1 tablespoon green or red onion, sliced or diced",
-            "1 tablespoon blue cheese, room temperature, crumbled",
-            "1/2 cup cheddar cheese, room temperature, grated",
-            "2 slices bread",
-            "1 tablespoon butter, room temperature"
-        ],
-        "source_url": "http://www.closetcooking.com/2011/08/buffalo-chicken-grilled-cheese-sandwich.html",
-        "recipe_id": "35171",
-        "image_url": "http://static.food2fork.com/Buffalo2BChicken2BGrilled2BCheese2BSandwich2B5002B4983f2702fe4.jpg",
-        "social_rank": 100,
-        "publisher_url": "http://closetcooking.com",
-        "title": "Buffalo Chicken Grilled Cheese Sandwich"
-    }
+  var index = 0;
+  var a = 0;
+  // renders recipe on page
+  var render = function(){
+    $('#recipe-item').empty();
+    $('#recipe-item').append($recipeTemplate({recipe:recipes.recipes[index]}));
   };
+    render();
 
-  $('#recipe-item').append($recipeTemplate(recipe));
-
-  $.ajax({
-      url: "https://food2fork.com/api/search?key=c75d4d5e1941dafbbdc4b6d0ba39b1cf",
-      type: "GET",
-      success: function(data) { },
-      error: function(jqXHR, textStatus, errorThrown) { }
+  // CHANGES RECIPE ON CLICK
+  $( "#red-button" ).on( "click", function() {
+    index ++;
+    render();
+    a ++;
   });
+
+  $( "#green-button" ).on( "click", function() {
+    index ++;
+    render();
+    a ++;
+    console.log(a);
+      if (a === 31) {
+        var num = 2;
+        $.get('/food2fork' + num, function(data) {
+          var recipes = JSON.parse(data);
+          console.log("two");
+          num ++;
+        });
+      };
+   });
+
+});
+
+
+    // SEED DATA
+  // var recipes = [
+  //   {
+  //     publisher: "Closet Cooking",
+  //     f2f_url: "http://food2fork.com/view/35382",
+  //     title: "Jalapeno Popper Grilled Cheese Sandwich",
+  //     source_url: "http://www.closetcooking.com/2011/04/jalapeno-popper-grilled-cheese-sandwich.html",
+  //     recipe_id: "35382",
+  //     image_url: "http://static.food2fork.com/Jalapeno2BPopper2BGrilled2BCheese2BSandwich2B12B500fd186186.jpg",
+  //     social_rank: 100,
+  //     publisher_url: "http://closetcooking.com"
+  //   },
+  //   {
+  //     publisher: "The Pioneer Woman",
+  //     f2f_url: "http://food2fork.com/view/47024",
+  //     title: "Perfect Iced Coffee",
+  //     source_url: "http://thepioneerwoman.com/cooking/2011/06/perfect-iced-coffee/",
+  //     recipe_id: "47024",
+  //     image_url: "http://static.food2fork.com/icedcoffee5766.jpg",
+  //     social_rank: 100,
+  //     publisher_url: "http://thepioneerwoman.com"
+  //   },
+  //   {
+  //     publisher: "The Pioneer Woman",
+  //     f2f_url: "http://food2fork.com/view/47319",
+  //     title: "Crash Hot Potatoes",
+  //     source_url: "http://thepioneerwoman.com/cooking/2008/06/crash-hot-potatoes/",
+  //     recipe_id: "47319",
+  //     image_url: "http://static.food2fork.com/CrashHotPotatoes5736.jpg",
+  //     social_rank: 100,
+  //     publisher_url: "http://thepioneerwoman.com"
+  //   }
+  // ];
 
 });

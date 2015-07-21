@@ -18,7 +18,7 @@
 
   <link href='https://fonts.googleapis.com/css?family=Leckerli+One' rel='stylesheet' type='text/css'>
 
-  <title>Recipe Forker</title>
+  <title>Recipe Roullete</title>
 </head>
 <body>
 
@@ -58,7 +58,7 @@
   <img src="http://placehold.it/250x300"> 
   </center> -->
 
-  <!--   RECIPE SHOWS HERE -->
+  <!-- RECIPE SHOWS HERE -->
   <center>
   <div id="recipe-item"></div>
   </center>
@@ -68,9 +68,9 @@
     <div clas="container">
       <div class="row">
         <div class="col-lg-12">
-          <button type="button" class="btn btn-danger btn-circle btn-xl"><i class="glyphicon glyphicon-remove"></i></button>
+          <button id="red-button" type="button" class="btn btn-danger btn-circle btn-xl"><i class="glyphicon glyphicon-remove"></i></button>
             <div class="divider"/></div>
-          <button type="button" class="btn btn-success btn-circle btn-xl"><i class="glyphicon glyphicon-heart"></i></button>
+          <button id="green-button" type="button" class="btn btn-success btn-circle btn-xl"><i class="glyphicon glyphicon-heart"></i></button>
         </div>
       </div>    
     </div>
@@ -80,7 +80,6 @@
 
   <!-- jquery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-
 
   <!-- bootstrap js -->
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -101,7 +100,7 @@
         <%= recipe.title %>
       </p>
       <p>
-        <a href=" <%= recipe.source_url %> ">Click for ingredients!</a>
+        <a href=" <%= recipe.source_url %> " target="_blank">Click for ingredients!</a>
       </p>
     </div>
   </script>
