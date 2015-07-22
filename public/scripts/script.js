@@ -3,44 +3,47 @@ $(function() {
   // compile recipe template
   var $recipeTemplate = _.template($('#recipe-template').html());
 
-  // ROUTE TO SERVER
-  $.get('/food2fork', function(data) {
-    var recipes = JSON.parse(data);
-    // console.log(recipes.recipes[0].title);
-    // console.log($recipeTemplate);
-
+  var recipes;
   var index = 0;
-  var a = 0;
+
   // renders recipe on page
   var render = function(){
     $('#recipe-item').empty();
     $('#recipe-item').append($recipeTemplate({recipe:recipes.recipes[index]}));
   };
+
+  // ROUTE TO SERVER
+  $.get('/food2fork', function(data) {
+    recipes = JSON.parse(data);
+    // console.log(recipes.recipes[0].title);
+    // console.log($recipeTemplate);
     render();
+  });
 
   // CHANGES RECIPE ON CLICK
   $( "#red-button" ).on( "click", function() {
     index ++;
     render();
-    a ++;
   });
 
   $( "#green-button" ).on( "click", function() {
     index ++;
-    render();
-    a ++;
-    console.log(a);
-      if (a === 31) {
-        var num = 2;
-        $.get('/food2fork' + num, function(data) {
-          var recipes = JSON.parse(data);
-          console.log("two");
-          num ++;
-        });
-      };
-   });
+    if (recipes.recipes[index] === undefined) {
+      $.get('/food2fork', function(data) {
+        recipes = JSON.parse(data);
+        console.log("two");
+        index = 0;
+      });
+    } else {
+      render();
+    }
+  });
 
-});
+  
+
+
+
+
 
 
     // SEED DATA
