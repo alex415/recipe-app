@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
 
 // define user schema
 var UserSchema = new Schema({
+  firstName: String,
+  lastName: String,
   email: String,
   passwordDigest: String
 });

@@ -6,13 +6,14 @@ var express = require('express'),
     _ = require('underscore'),
     request = require('request'),
     User = require('./models/user'),
+    Recipe = require('./models/recipe')
     session = require('express-session');
 
 // connect to mongodb
 mongoose.connect(
   process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
-  'mongodb://localhost/food2fork' // plug in the db name you've been using
+  'mongodb://localhost/recipe_app' // plug in the db name you've been using
 );
 
 // middleware
@@ -51,15 +52,28 @@ app.use('/', function (req, res, next) {
   next();
 });
 
-
-// include our module from the other file
-var db = require('./models/model');
+// // include our module from the other file
+// var db = require('./models/model');
 
 // STATIC ROUTES
 
 // homepage
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/views/index.html');
+});
+
+// profile page
+app.get('/profile', function (req, res) {
+  // check for current (logged-in) user
+  req.currentUser(function (err, user) {
+    // show profile if logged-in user
+    if (user) {
+      res.sendFile(__dirname + '/public/views/profile.html');
+    // redirect if no user logged in
+    } else {
+      res.redirect('/');
+    }
+  });
 });
 
 // API ROUTES
@@ -72,12 +86,23 @@ app.get('/food2fork', function (req, res) {
   });
 });
 
-// AUTHORIZATION
+// save new recipe in db
+app.get('/favorites', function (req, res) {
+  Recipe.find(function (err, recipes) {
+    res.json(recipes);
+  });
+});
 
-// // signup route with placeholder response
-// app.get('/signup', function (req, res) {
-//   res.send('coming soon');
-// });
+// create new recipe
+app.post('/favorites', function (req, res) {
+  // create new recipe with form data (`req.body`)
+  var newRecipe = new Recipe({
+    image_url: req.body.image_url,
+    title: req.body.title,
+    source_url: req.body.source_url
+  });
+
+// AUTHORIZATION
 
 // signup route (renders signup view)
 app.get('/signup', function (req, res) {
@@ -125,6 +150,12 @@ app.get('/profile', function (req, res) {
 // login route (renders login view)
 app.get('/login', function (req, res) {
   res.sendFile(__dirname + '/public/views/login.html');
+});
+
+// log out user (destroy session)
+app.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
 });
 
 // listen on port 3000
