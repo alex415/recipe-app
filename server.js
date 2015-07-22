@@ -35,13 +35,13 @@ app.use('/', function (req, res, next) {
     req.session.userId = user.id;
   };
 
-  // finds user currently logged in based on `session.userId`
-  req.currentUser = function (callback) {
-    User.findOne({_id: req.session.userId}, function (err, user) {
-      req.user = user;
-      callback(null, user);
-    });
-  };
+// finds user currently logged in based on `session.userId`
+req.currentUser = function (callback) {
+  User.findOne({_id: req.session.userId}, function (err, user) {
+    req.user = user;
+    callback(null, user);
+  });
+};
 
   // destroy `session.userId` to log out user
   req.logout = function () {
@@ -52,28 +52,11 @@ app.use('/', function (req, res, next) {
   next();
 });
 
-// // include our module from the other file
-// var db = require('./models/model');
-
 // STATIC ROUTES
 
 // homepage
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/views/index.html');
-});
-
-// profile page
-app.get('/profile', function (req, res) {
-  // check for current (logged-in) user
-  req.currentUser(function (err, user) {
-    // show profile if logged-in user
-    if (user) {
-      res.sendFile(__dirname + '/public/views/profile.html');
-    // redirect if no user logged in
-    } else {
-      res.redirect('/');
-    }
-  });
 });
 
 // API ROUTES
@@ -93,16 +76,21 @@ app.get('/favorites', function (req, res) {
   });
 });
 
-// create new recipe
+// create new phrase
 app.post('/favorites', function (req, res) {
-  // create new recipe with form data (`req.body`)
+  // create new phrase with form data (`req.body`)
   var newRecipe = new Recipe({
-    image_url: req.body.image_url,
-    title: req.body.title,
-    source_url: req.body.source_url
-  });
-
+    image_url: req.body.word,
+    title: req.body.definition,
+    source_url: req.body
+  })
+})
 // AUTHORIZATION
+
+// // signup route with placeholder response
+// app.get('/signup', function (req, res) {
+//   res.send('coming soon');
+// });
 
 // signup route (renders signup view)
 app.get('/signup', function (req, res) {
@@ -117,7 +105,7 @@ app.post('/users', function (req, res) {
 
   // create new user with secure password
   User.createSecure(newUser.email, newUser.password, function (err, user) {
-    res.send(user);
+    res.send(user); // refactor to redirec
   });
 });
 
@@ -150,12 +138,6 @@ app.get('/profile', function (req, res) {
 // login route (renders login view)
 app.get('/login', function (req, res) {
   res.sendFile(__dirname + '/public/views/login.html');
-});
-
-// log out user (destroy session)
-app.get('/logout', function (req, res) {
-  req.logout();
-  res.redirect('/');
 });
 
 // listen on port 3000
