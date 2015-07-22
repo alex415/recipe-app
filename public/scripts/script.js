@@ -12,13 +12,19 @@ $(function() {
     $('#recipe-item').append($recipeTemplate({recipe:recipes.recipes[index]}));
   };
 
-  // ROUTE TO SERVER
+  // CALL TO SERVER FOR API REQUEST
   $.get('/food2fork', function(data) {
     recipes = JSON.parse(data);
-    // console.log(recipes.recipes[0].title);
-    // console.log($recipeTemplate);
     render();
   });
+
+  // SAVE RECIPE
+  $( "#green-button" ).on( "click", function()
+  $.post('/favorites', function(data) {
+    recipes = JSON.parse(data);
+  });
+});
+
 
   // CHANGES RECIPE ON CLICK
   $( "#red-button" ).on( "click", function() {
@@ -53,16 +59,6 @@ $(function() {
   //     image_url: "http://static.food2fork.com/Jalapeno2BPopper2BGrilled2BCheese2BSandwich2B12B500fd186186.jpg",
   //     social_rank: 100,
   //     publisher_url: "http://closetcooking.com"
-  //   },
-  //   {
-  //     publisher: "The Pioneer Woman",
-  //     f2f_url: "http://food2fork.com/view/47024",
-  //     title: "Perfect Iced Coffee",
-  //     source_url: "http://thepioneerwoman.com/cooking/2011/06/perfect-iced-coffee/",
-  //     recipe_id: "47024",
-  //     image_url: "http://static.food2fork.com/icedcoffee5766.jpg",
-  //     social_rank: 100,
-  //     publisher_url: "http://thepioneerwoman.com"
   //   },
   //   {
   //     publisher: "The Pioneer Woman",
