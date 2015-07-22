@@ -42,10 +42,6 @@ $(function() {
   
 
 
-
-
-
-
     // SEED DATA
   // var recipes = [
   //   {

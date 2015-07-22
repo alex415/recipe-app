@@ -67,7 +67,7 @@ app.get('/', function (req, res) {
 // get recipe
 app.get('/food2fork', function (req, res) {
   // var page = req.body.page;
-  request('http://food2fork.com/api/search?key=c75d4d5e1941dafbbdc4b6d0ba39b1cf&page=', function (error, response, body) {
+  request('http://food2fork.com/api/search?key=c75d4d5e1941dafbbdc4b6d0ba39b1cf', function (error, response, body) {
     res.json(body);
   });
 });
