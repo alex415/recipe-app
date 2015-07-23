@@ -70,20 +70,26 @@ app.get('/food2fork', function (req, res) {
 });
 
 // save new recipe in db
-app.get('/favorites', function (req, res) {
-  Recipe.find(function (err, recipes) {
-    res.json(recipes);
+app.get('/recipes', function (req, res) {
+  req.currentUser(function (err, user) {
+    res.json(user.recipes);
   });
 });
 
 // create new phrase
-app.post('/favorites', function (req, res) {
+app.post('/recipes', function (req, res) {
   // create new phrase with form data (`req.body`)
   var newRecipe = new Recipe({
-    image_url: req.body.word,
-    title: req.body.definition,
-    source_url: req.body
+    image_url: req.body.image_url,
+    title: req.body.title,
+    source_url: req.body.source_url
   })
+    req.currentUser(function (err, user) {
+      user.recipes.push(newRecipe);
+      user.save(function(err, savedUser) {
+        res.json(newRecipe);
+      })
+  });
 })
 // AUTHORIZATION
 
@@ -105,7 +111,8 @@ app.post('/users', function (req, res) {
 
   // create new user with secure password
   User.createSecure(newUser.email, newUser.password, function (err, user) {
-    res.send(user); // refactor to redirec
+    req.login(user);
+    res.redirect('/');
   });
 });
 
@@ -121,10 +128,15 @@ app.post('/login', function (req, res) {
   User.authenticate(userData.email, userData.password, function (err, user) {
   // saves user id to session
   req.login(user);
-
+  // res.send(user);
   // redirect to user profile
-  res.redirect('/profile');
+  res.redirect('/');
   });
+});
+
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
 });
 
 // user profile page
