@@ -12,7 +12,7 @@ $(function() {
     $('#recipe-item').append($recipeTemplate({recipe:recipes.recipes[index]}));
   };
 
-  var user 
+  // var user
 
   // CALL TO SERVER FOR 30 RECIPES
   $.get('/food2fork', function(data) {
@@ -20,7 +20,7 @@ $(function() {
     render();
   });
 
-//GETTING USERS RECIPES AND APPENDING ON THE PAGE WHEN WE FIRST LOAD
+  // GETTING USERS RECIPES AND APPENDING ON THE PAGE WHEN WE FIRST LOAD
   $.get('/userfood', function(data) {
     console.log(data);
     for (var i = 0; i < data.length; i++) {
