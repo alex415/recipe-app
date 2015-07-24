@@ -146,11 +146,16 @@ app.post('/login', function (req, res) {
 
   // call authenticate function to check if password user entered is correct
   User.authenticate(userData.email, userData.password, function (err, user) {
-  // saves user id to session
-  req.login(user);
-  // res.send(user);
-  // redirect to user profile
-  res.redirect('/');
+    if (err) {
+      console.log("error" + err);
+    }
+    else {
+      // saves user id to session
+      req.login(user);
+
+      // redirect to user profile
+      res.redirect('/');
+      }
   });
 });
 
