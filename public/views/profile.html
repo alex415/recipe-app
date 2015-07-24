@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- bootstrap css -->
+  <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- custom styles -->
+  <link type="text/css" rel="stylesheet" href="../styles/style.css">
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <!-- Google Font -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+  <!-- Google Font -->
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+  <!-- Google Font -->
+  <link href='https://fonts.googleapis.com/css?family=Leckerli+One' rel='stylesheet' type='text/css'>
+
+  <title>wat2cook</title>
+</head>
+<body>
+  <!-- NAVBAR --> <!--ADDED FIXED TOP -->
+  <div id="nav">
+  <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><i class="fa fa-cutlery"></i> wat2cook</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/signup">Sign up</a></li>
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/logout">Log out</a></li>
+      </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+  </div>
+  <!-- END OF NAVBAR -->
+  <br>
+
+  <!-- HEADER -->
+  <center>
+  <h1>Welcome!</h1>
+    <h2>Let's find some recipes for you.</h2> <br>
+  </center>
+
+  <!-- PLACEHOLDER -->
+<!--   <center>
+  <img src="http://placehold.it/250x300"> 
+  </center> -->
+
+  <!-- RECIPE SHOWS HERE -->
+  <center><div id="recipe-item"></div></center>
+
+  <!-- BUTTONS -->
+  <center>
+    <div clas="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <button id="red-button" type="button" class="btn btn-danger btn-circle btn-xl"><i class="glyphicon glyphicon-remove"></i></button>
+            <div class="divider"/></div>
+          <button id="green-button" type="button" class="btn btn-success btn-circle btn-xl"><i class="glyphicon glyphicon-heart"></i></button>
+        </div>
+      </div>    
+    </div>
+  </center>
+
+  <!-- SAVED RECIPES SHOW HERE -->
+  <div id="saved-recipes"> </div>
+
+  <!-- jquery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+
+  <!-- bootstrap js -->
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <!-- underscore -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <!-- custom script -->
+  <script type="text/javascript" src="../scripts/script.js"></script>
+
+  <!-- underscore template -->
+  <script type="text/template" id="recipe-template">
+    <div id="recipe">
+      <p>
+        <img src="<%= recipe.image_url %>" height=300px;>
+      </p>
+      <p>
+        <b><%= recipe.title %></b>
+      </p>
+      <p>
+        <a href=" <%= recipe.source_url %> " target="_blank">Click for ingredients!</a>
+      </p>
+    </div>
+  </script>
+
+</body>
+</html>
