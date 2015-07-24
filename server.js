@@ -69,6 +69,16 @@ app.get('/food2fork', function (req, res) {
   });
 });
 
+app.get('/userfood', function (req, res) {
+  var targetId = req.session.userId;
+
+  User.findOne({_id: targetId}, function (err, foundUser) {
+    if (foundUser) {
+      res.json(foundUser.recipes);
+    }
+  });
+});
+
 // get recipes of current user
 app.get('/recipes', function (req, res) {
   req.currentUser(function (err, user) {

@@ -9,10 +9,7 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
   email: String,
   passwordDigest: String,
-  recipes: [{
-    type: Schema.Types.ObjectId,
-    ref: "Recipe"
-  }]
+  recipes: [Recipe.schema]
 });
 
 // create a new user with secure (hashed) password

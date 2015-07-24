@@ -10,16 +10,22 @@ $(function() {
   var render = function(){
     $('#recipe-item').empty();
     $('#recipe-item').append($recipeTemplate({recipe:recipes.recipes[index]}));
-
-    for (var i = 0; i < recipes.recipes.length; i++) {
-      $('#saved-recipes').append($recipeTemplate({recipe:recipes.recipes[i]}));  
-    }
   };
+
+  var user 
 
   // CALL TO SERVER FOR 30 RECIPES
   $.get('/food2fork', function(data) {
     recipes = JSON.parse(data);
     render();
+  });
+
+//GETTING USERS RECIPES AND APPENDING ON THE PAGE WHEN WE FIRST LOAD
+  $.get('/userfood', function(data) {
+    console.log(data);
+    for (var i = 0; i < data.length; i++) {
+      $('#saved-recipes').append($recipeTemplate({recipe: data[i]}));  
+    };
   });
 
   // CHANGES RECIPE ON CLICK
@@ -41,7 +47,9 @@ $(function() {
     };
 
     $.post('/recipes', tempRecipe, function(data) {
-      console.log(data);
+      // ONCE WE FINISH APPEND SAVED RECIPE ON TO PAGE
+      var length = data.recipes.length - 1;
+      $('#saved-recipes').append($recipeTemplate({recipe: data.recipes[length]}));  
     });
 
       index ++;
