@@ -20,9 +20,19 @@ h2 {
   top:0px;
   left:0px;
   right:0px;
-  background:#fff url(../images/nav.png) repeat-x center left;
+  background:#fff url("http://www.pptbackgrounds.net/uploads/elegant-grey-illumination-background-presentations-powerpoint-backgrounds.jpg") repeat-x center left;
   z-index:999999;
 }
+
+/*.post-body img {
+max-width: 640px !important;
+height: auto !important;
+}*/
+
+/*.pinit-wrapper img {
+max-width: 125px !important;
+height: auto !important;
+}*/
 
 /*HOVER EFFECT FOR BUTTON*/
 button:hover {

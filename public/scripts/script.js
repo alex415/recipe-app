@@ -10,42 +10,59 @@ $(function() {
   var render = function(){
     $('#recipe-item').empty();
     $('#recipe-item').append($recipeTemplate({recipe:recipes.recipes[index]}));
+
+    for (var i = 0; i < recipes.recipes.length; i++) {
+      $('#saved-recipes').append($recipeTemplate({recipe:recipes.recipes[i]}));  
+    }
   };
 
-  // CALL TO SERVER FOR API REQUEST
+  // CALL TO SERVER FOR 30 RECIPES
   $.get('/food2fork', function(data) {
     recipes = JSON.parse(data);
     render();
   });
 
-  // SAVE RECIPE
-  $( "#green-button" ).on( "click", function(){
-  $.post('/favorites', function(data) {
-    recipes = JSON.parse(data);
-  });
-});
-
-
   // CHANGES RECIPE ON CLICK
+
   $( "#red-button" ).on( "click", function() {
     index ++;
     render();
   });
 
   $( "#green-button" ).on( "click", function() {
-    index ++;
-    if (recipes.recipes[index] === undefined) {
-      $.get('/food2fork', function(data) {
-        recipes = JSON.parse(data);
-        console.log("two");
-        index = 0;
-      });
-    } else {
-      render();
-    }
+    console.log(recipes.recipes[index].image_url);
+    console.log(recipes.recipes[index].title);
+    console.log(recipes.recipes[index].source_url);
+
+    var tempRecipe = {
+      image_url: recipes.recipes[index].image_url,
+      title: recipes.recipes[index].title,
+      source_url: recipes.recipes[index].source_url
+    };
+
+    $.post('/recipes', tempRecipe, function(data) {
+      console.log(data);
+    });
+
+      index ++;
+      // checks for empty array in recipes
+      if (recipes.recipes[index] === undefined) {
+        $.get('/food2fork', function(data) {
+          recipes = JSON.parse(data);
+          console.log("hello");
+          index = 0;
+        });
+      } else {
+        render();
+      }
   });
 
   
+
+
+
+
+
 
 
 
