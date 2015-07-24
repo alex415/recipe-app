@@ -6,7 +6,7 @@ var express = require('express'),
     _ = require('underscore'),
     request = require('request'),
     User = require('./models/user'),
-    Recipe = require('./models/recipe')
+    Recipe = require('./models/recipe'),
     session = require('express-session');
 
 // connect to mongodb
@@ -38,7 +38,7 @@ app.use('/', function (req, res, next) {
 // finds user currently logged in based on `session.userId`
 req.currentUser = function (callback) {
   User.findOne({_id: req.session.userId}, function (err, user) {
-    req.user = user;
+    var user = req.user;
     callback(null, user);
   });
 };
@@ -69,34 +69,54 @@ app.get('/food2fork', function (req, res) {
   });
 });
 
-// save new recipe in db
+// get recipes of current user
 app.get('/recipes', function (req, res) {
   req.currentUser(function (err, user) {
     res.json(user.recipes);
   });
 });
 
-// create new phrase
+// create new recipe
 app.post('/recipes', function (req, res) {
-  // create new phrase with form data (`req.body`)
+  // create new recipe with form data (`req.body`)
   var newRecipe = new Recipe({
     image_url: req.body.image_url,
     title: req.body.title,
     source_url: req.body.source_url
-  })
-    req.currentUser(function (err, user) {
-      user.recipes.push(newRecipe);
-      user.save(function(err, savedUser) {
-        res.json(newRecipe);
-      })
   });
-})
-// AUTHORIZATION
+  newRecipe.save();
+  // set the value of the id
+  var targetId = req.session.userId;
+  // find phrase in db by id
+  User.findOne({_id: targetId}, function (err, foundUser) {
+    foundUser.recipes.push(newRecipe);
+    foundUser.save(function (err, savedUser) {
+      res.json(savedUser);
+    });
+  });
+});
 
-// // signup route with placeholder response
-// app.get('/signup', function (req, res) {
-//   res.send('coming soon');
-// });
+
+    // targetId = req.params.id
+    // User.findOne({_id:targetId}, function(err, idea){
+        // var foundIdea = idea;
+        // console.log('foundIdea: ' + foundIdea);
+        // console.log("new comment:" +newComment);
+        // console.log(newComment._id);
+        // foundIdea.comments.push(newComment._id);
+        // foundIdea.save(function (err, savedUser) {
+        //   res.json(savedUser);
+        // });
+
+    // req.currentUser(function (err, user) {
+    //   newRecipe.save();
+    //   User.save(function(err, savedUser) {
+    //     res.json(newRecipe);
+    //   })
+//   });
+// })
+
+// AUTHORIZATION
 
 // signup route (renders signup view)
 app.get('/signup', function (req, res) {

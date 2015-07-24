@@ -55,6 +55,7 @@
   </nav>
   </div>
   <!-- END OF NAVBAR -->
+  <br>
 
   <!-- HEADER -->
   <center>
@@ -68,9 +69,7 @@
   </center> -->
 
   <!-- RECIPE SHOWS HERE -->
-  <center>
-  <div id="recipe-item"></div>
-  </center>
+  <center><div id="recipe-item"></div></center>
 
   <!-- BUTTONS -->
   <center>
@@ -84,11 +83,9 @@
       </div>    
     </div>
   </center>
-  <hr>
 
-  <!--   SAVED RECIPES -->
-  <div id="saved-recipes">
-  </div>
+  <!-- SAVED RECIPES SHOW HERE -->
+  <div id="saved-recipes"> </div>
 
   <!-- jquery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
@@ -109,7 +106,7 @@
         <img src="<%= recipe.image_url %>" height=300px;>
       </p>
       <p>
-        <%= recipe.title %>
+        <b><%= recipe.title %></b>
       </p>
       <p>
         <a href=" <%= recipe.source_url %> " target="_blank">Click for ingredients!</a>
