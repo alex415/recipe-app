@@ -1,3 +1,13 @@
+/*hr { height: 2px; color: #de7008; background-color: #df7109; border: none; } 
+*/
+
+hr {
+  border : 0;
+  height : 10px;
+  background:#fff url("http://www.pptbackgrounds.net/uploads/elegant-grey-illumination-background-presentations-powerpoint-backgrounds.jpg") repeat-x center left;
+  margin : 1em 0;
+}
+
 h1 {
   padding: 0px;
   margin: 0px;
@@ -159,4 +169,9 @@ button:hover {
     color: #ecf0f1;
     background-color: #ff6600;
   }
+}
+
+#saved-recipes {
+  color: black;
+  background-color: #ff6600;
 }
