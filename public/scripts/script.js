@@ -3,6 +3,8 @@ $(function() {
   // compile recipe template
   var $recipeTemplate = _.template($('#recipe-template').html());
 
+  var $favoriteTemplate = _.template($('#favorite-template').html());
+
   var recipes;
   var index = 0;
 
@@ -24,7 +26,7 @@ $(function() {
   $.get('/userfood', function(data) {
     console.log(data);
     for (var i = 0; i < data.length; i++) {
-      $('#saved-recipes').append($recipeTemplate({recipe: data[i]}));  
+      $('#saved-recipes').append($favoriteTemplate({recipe: data[i]}));  
     };
   });
 
@@ -49,7 +51,7 @@ $(function() {
     $.post('/recipes', tempRecipe, function(data) {
       // ONCE WE FINISH APPEND SAVED RECIPE ON TO PAGE
       var length = data.recipes.length - 1;
-      $('#saved-recipes').append($recipeTemplate({recipe: data.recipes[length]}));  
+      $('#saved-recipes').append($favoriteTemplate({recipe: data.recipes[length]}));  
     });
 
       index ++;
