@@ -79,12 +79,11 @@
     </div>
   </center>
 
-  <hr>
+  <!--   <hr> -->
+  <div class="line"></div>
 
   <!-- SAVED RECIPES SHOW HERE -->
-  <center>
-  <div id="saved-recipes"> </div>
-  </center>
+    <div id="saved-recipes"></div>
 
   <!-- jquery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
@@ -110,6 +109,23 @@
       <p>
         <a href=" <%= recipe.source_url %> " target="_blank">Click for ingredients!</a>
       </p>
+    </div>
+  </script>
+
+  <!-- Favorites Underscore Template -->
+  <script type="text/template" id="favorite-template">
+    <div id="recipe">
+      <div class="col-md-3">
+          <p>
+            <img src="<%= recipe.image_url %>" height=100px;>
+          </p>
+          <p>
+            <b><%= recipe.title %></b>
+          </p>
+          <p>
+            <a href=" <%= recipe.source_url %> " target="_blank">Click for ingredients!</a>
+          </p>
+      </div>  
     </div>
   </script>
 

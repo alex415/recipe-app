@@ -13,7 +13,7 @@ var express = require('express'),
 mongoose.connect(
   process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
-  'mongodb://localhost/recipe_app' // plug in the db name you've been using
+  'mongodb://localhost/recipe_app'
 );
 
 // middleware
@@ -62,9 +62,9 @@ app.get('/', function (req, res) {
 // API ROUTES
 
 // get recipe
-app.get('/food2fork', function (req, res) {
-  // var page = req.body.page;
-  request('http://food2fork.com/api/search?key=c75d4d5e1941dafbbdc4b6d0ba39b1cf', function (error, response, body) {
+app.get('/food2fork/:page', function (req, res) {
+  var page = req.params.page;
+  request('http://food2fork.com/api/search?key=c75d4d5e1941dafbbdc4b6d0ba39b1cf&page='+page, function (error, response, body) {
     res.json(body);
   });
 });
@@ -105,26 +105,6 @@ app.post('/recipes', function (req, res) {
     });
   });
 });
-
-
-    // targetId = req.params.id
-    // User.findOne({_id:targetId}, function(err, idea){
-        // var foundIdea = idea;
-        // console.log('foundIdea: ' + foundIdea);
-        // console.log("new comment:" +newComment);
-        // console.log(newComment._id);
-        // foundIdea.comments.push(newComment._id);
-        // foundIdea.save(function (err, savedUser) {
-        //   res.json(savedUser);
-        // });
-
-    // req.currentUser(function (err, user) {
-    //   newRecipe.save();
-    //   User.save(function(err, savedUser) {
-    //     res.json(newRecipe);
-    //   })
-//   });
-// })
 
 // AUTHORIZATION
 
