@@ -13,6 +13,7 @@ var express = require('express'),
 mongoose.connect(
   process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
+
   'mongodb://localhost/recipe_app'
 );
 
@@ -62,9 +63,8 @@ app.get('/', function (req, res) {
 // API ROUTES
 
 // get recipe
-app.get('/food2fork/:page', function (req, res) {
-  var page = req.params.page;
-  request('http://food2fork.com/api/search?key=c75d4d5e1941dafbbdc4b6d0ba39b1cf&page='+page, function (error, response, body) {
+app.get('/food2fork', function (req, res) {
+  request('http://food2fork.com/api/search?key=c75d4d5e1941dafbbdc4b6d0ba39b1cf', function (error, response, body) {
     res.json(body);
   });
 });
